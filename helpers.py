@@ -38,3 +38,8 @@ def cleanup_error_files():
     files_to_delete = glob.glob(os.path.join(directory, pattern))
     for file_path in files_to_delete:
         os.remove(file_path)
+
+
+def make_dir(directory_path):
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)

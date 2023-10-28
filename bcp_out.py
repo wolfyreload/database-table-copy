@@ -21,8 +21,8 @@ class BCPOut:
         bcp_in_wrapper = BCPWrapper(self.sql_connection, Config.working_folder)
         table_list = helpers.get_table_list(self.sql_connection)
         self.remove_excluded_tables(table_list)
-        os.system(f"mkdir {Config.working_folder} -p")
-
+        helpers.make_dir(Config.working_folder)
+        
         for table in table_list:
             schema_name, table_name = itemgetter("SchemaName", "TableName")(table)
             self.export_table(bcp_in_wrapper, schema_name, table_name)

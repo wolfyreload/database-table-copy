@@ -1,5 +1,6 @@
-from util.sql_connection_properties import SQLConnectionProperties
+import os
 
+from util.sql_connection_properties import SQLConnectionProperties
 
 class BCPWrapper:
     """
@@ -41,18 +42,24 @@ class BCPWrapper:
         port = self.sql_connection_properties.port
         server = self.sql_connection_properties.server
 
+        if os.name == 'nt':
+            arguments = '-n -k -q -E'
+        else:
+            arguments = '-u -n -k -q -E'
+
         script = (f'bcp '
                   f'"{database}.{schema}.{table}" '
                   f'{operation} ./{self.folder}/{schema}_{table}.bcp '
                   f'-S"{server},{port}" '
                   f'-U {username} '
                   f'-P {password} '
-                  f'-u -n -k -q -E'
+                  f'{arguments}'
                   f' >{self.get_error_file_name(schema, table, operation)} 2>&1')
         # -n native type
         # -k keep null values
         # -E keep identity values
         # -q quoted identifier
+        # -u trust server certificate (not working on windows)
         return script
 
     def get_error_file_name(self, schema: str, table: str, operation: str):
