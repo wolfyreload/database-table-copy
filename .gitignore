@@ -1,0 +1,6 @@
+.idea/
+*.pyc
+bcp/
+logs/
+build/
+config.json
