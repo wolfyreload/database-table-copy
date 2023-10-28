@@ -1,23 +1,29 @@
 # Database Table Copy
 
-Database Table Copy is a simple bcp wrapper to copy all the table data from one database
-to another using the Microsoft bcp command line tool underneath
+Database Table Copy is a simple Microsoft bcp wrapper to copy all table data from one database to another.
 
-Note that this tool only works with Microsoft SQL Server and Microsoft Azure SQL.
+Please note that this tool only works with Microsoft SQL Server and Microsoft Azure SQL.
 
-I hope that you find this tool useful, however use at your own risk.
+I hope you find this tool useful, but use it at your own risk.
 
 ## Background
 
-When you write software, you often need to copy database data from production to UAT or from production to development.
+When writing software, you often need to copy database data from production to UAT or from production to development.
 
-Especially if you are working in Azure, getting the data out can be a very time-consuming process. The typical route
-would be to create a backup of the database and then restore that backup in another environment. However, you make sure
-don't accidentally configure the new database to be in the wrong tier as this can be a very costly mistake. Now, you
-could probably script out the backup and restore process, but unfortunately, the scripted process forces you to script
-out all the tables, and it is very slow.
+One way of doing this is to create a database backup (.bak file) and restore it to the other server. The problem
+with this approach is that the .bak file is not backward compatible, meaning that you cannot restore a SQL Server 2022
+database backup to a SQL Server 2019 instance.
 
-So the tool was written to just copy the tables from one database to another, and it even works with Microsoft Azure SQL.
+The next option is to use the Generate Scripts feature in SSMS, but this inserts the data one row at a time, which can be 
+slow when copying a table with over 2 million rows.
+
+Finally, the last option is to create a SQL Server BACPAC file. The advantage of this solution is that the BACPAC file is 
+backward compatible with older versions of SQL Server. However, this solution is much slower than creating a regular backup 
+file. You also have the added risk when restoring the database in Azure of accidentally selecting the wrong tier and which can 
+be a very costly mistake. 
+
+I looked for an alternative solution and as I didn't find anything that worked for me. I've built my own solution to solve this 
+problem and it even works with Microsoft Azure SQL.
 
 ## Requirements
 
@@ -30,8 +36,10 @@ So the tool was written to just copy the tables from one database to another, an
 * Add the tool to your path in environment variables
 * Copy and tweak the example config.example.json file
 
+After adding the program to your evironment path run the script below to run the application 
+
 ```bash
-database-table-copy config.json
+database-table-copy config_file
 ```
 
 The structure of the config.json file:
@@ -46,6 +54,7 @@ The structure of the config.json file:
 
 * Python 3.12 or greater
 * pipenv (python virtual environment tool)
+* pyenv (you can skip this one if you edit the version of python needed in the Pipfile)
 
 Run build.sh or build.bat to build the application
 
