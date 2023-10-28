@@ -11,8 +11,9 @@ class BCPWrapper:
     :param folder: The folder to store BCP files. Default is "bcp".
     :type folder: str
     """
-    def __init__(self, sql_connection_properties: SQLConnectionProperties, folder="bcp"):
+    def __init__(self, sql_connection_properties: SQLConnectionProperties, bcp_path: str, folder):
         self.sql_connection_properties = sql_connection_properties
+        self.bcp_path = bcp_path
         self.folder = folder
 
     def generate_bcp_out_statement(self, schema: str, table: str):
@@ -47,7 +48,7 @@ class BCPWrapper:
         else:
             arguments = '-u -n -k -q -E'
 
-        script = (f'bcp '
+        script = (f'{self.bcp_path} '
                   f'"{database}.{schema}.{table}" '
                   f'{operation} ./{self.folder}/{schema}_{table}.bcp '
                   f'-S"{server},{port}" '

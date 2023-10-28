@@ -24,7 +24,7 @@ class BCPIn:
         self.conn = SQLServerQueryWrapper(self.sql_connection)
 
     def import_tables(self):
-        bcp_out_wrapper = BCPWrapper(self.sql_connection, Config.working_folder)
+        bcp_out_wrapper = BCPWrapper(self.sql_connection, Config.bcp_path, Config.working_folder)
         full_table_list = helpers.get_table_list(self.sql_connection)
         self.disable_constraints(full_table_list)
 

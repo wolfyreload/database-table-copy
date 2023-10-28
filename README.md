@@ -31,6 +31,7 @@ database-table-copy config.json
 
 The structure of the config.json file:
 
+* **bcp_path** - filesystem path to the bcp tool
 * **source** - the database connection settings for the data that you want to export
 * **target** - the database connection settings for the database that you want to import the source data into
 * **working_folder** - the temp folder where the binary table data is written to which can be deleted after the import

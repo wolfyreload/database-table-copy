@@ -11,6 +11,7 @@ class Config:
     target = ""
     working_folder = ""
     exclude_table_list = []
+    bcp_path = ""
 
     @classmethod
     def load(cls, config_filename):
@@ -22,6 +23,7 @@ class Config:
             cls.target = json_data["target"]
             cls.working_folder = json_data["working_folder"]
             cls.exclude_table_list = json_data["exclude_table_list"]
+            cls.bcp_path = json_data["bcp_path"]
         except Exception as e:
             logging.error(f"Could not load config file '{config_filename}' {e}")
             sys.exit(1)
