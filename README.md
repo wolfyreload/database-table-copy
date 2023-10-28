@@ -19,6 +19,11 @@ out all the tables, and it is very slow.
 
 So the tool was written to just copy the tables from one database to another, and it even works with Microsoft Azure SQL.
 
+## Requirements
+
+* bcp version 18.2 or greater (included in SQL Server 2022 tools)
+* ODBC Driver 17 or 18 for SQL Server
+
 ## Usage
 
 * Download the version of the tool intended for your operating system.
