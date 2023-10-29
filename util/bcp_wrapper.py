@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from util.sql_connection_properties import SQLConnectionProperties
 
@@ -15,6 +16,11 @@ class BCPWrapper:
         self.sql_connection_properties = sql_connection_properties
         self.bcp_path = bcp_path
         self.folder = folder
+
+    @staticmethod
+    def is_valid_bcp_version(bcp_path) -> bool:
+        version_information = str(subprocess.check_output([bcp_path, "-v"]))
+        return "18." in version_information
 
     def generate_bcp_out_statement(self, schema: str, table: str):
         """
@@ -43,10 +49,12 @@ class BCPWrapper:
         port = self.sql_connection_properties.port
         server = self.sql_connection_properties.server
 
-        if os.name == 'nt':
-            arguments = '-n -k -q -E'
-        else:
-            arguments = '-u -n -k -q -E'
+        # -n native type
+        # -k keep null values
+        # -E keep identity values
+        # -q quoted identifier
+        # -u trust server certificate
+        arguments = '-u -n -k -q -E'
 
         script = (f'{self.bcp_path} '
                   f'"{database}.{schema}.{table}" '
@@ -56,11 +64,7 @@ class BCPWrapper:
                   f'-P {password} '
                   f'{arguments}'
                   f' >{self.get_error_file_name(schema, table, operation)} 2>&1')
-        # -n native type
-        # -k keep null values
-        # -E keep identity values
-        # -q quoted identifier
-        # -u trust server certificate (not working on windows)
+
         return script
 
     def get_error_file_name(self, schema: str, table: str, operation: str):
