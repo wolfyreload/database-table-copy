@@ -2,7 +2,6 @@ import logging
 import sys
 
 import helpers
-import log_configuration
 
 from arg_handler import config_filename
 from bcp_in import BCPIn

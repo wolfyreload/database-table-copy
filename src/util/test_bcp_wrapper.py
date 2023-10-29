@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from util.bcp_wrapper import BCPWrapper
-from util.sql_connection_properties import SQLConnectionProperties
+from src.util.bcp_wrapper import BCPWrapper
+from src.util.sql_connection_properties import SQLConnectionProperties
 
 
 class TestBcpWrapper(TestCase):
