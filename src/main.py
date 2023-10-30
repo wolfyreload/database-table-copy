@@ -13,6 +13,9 @@ from util.bcp_wrapper import BCPWrapper
 logging.info("Starting Database Table Copy")
 Config.load(config_filename)
 
+# Make bcp working folder if it doesn't exist
+helpers.make_dir(Config.working_folder)
+
 logging.info("Checking for valid bcp version")
 if not BCPWrapper.is_valid_bcp_version(Config.bcp_path):
     logging.error("Invalid bcp version detected, only version 18 is currently supported")
