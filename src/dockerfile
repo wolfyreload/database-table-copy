@@ -1,0 +1,20 @@
+FROM python:3.12.0-slim-bullseye
+WORKDIR /app
+
+# Install mssql-tools18 and microsoft ODBC drivers
+RUN apt-get update && apt-get -y install curl gpg
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+RUN curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev mssql-tools18
+
+# Install pipenv
+RUN pip install pipenv
+COPY Pipfile Pipfile.lock ./
+
+# Install application packages (we can do this system wide because this is a docker container)
+RUN pipenv install --system --deploy
+
+# Copy all the source code
+COPY ./ ./
+
+ENTRYPOINT ["python", "main.py"]

@@ -1,0 +1,26 @@
+{
+  "bcp_path": "/opt/mssql-tools18/bin/bcp",
+  "source": {
+    "driver": "ODBC Driver 18 for SQL Server",
+    "server": "localhost",
+    "database": "AdventureWorksLT2019",
+    "port": "1433",
+    "username": "sa",
+    "password": "your-password-goes-here"
+  },
+  "target": {
+    "driver": "ODBC Driver 18 for SQL Server",
+    "server": "localhost",
+    "database": "AdventureWorksLT2019_2",
+    "port": "1433",
+    "username": "sa",
+    "password": "your-password-goes-here"
+  },
+  "working_folder": "bcp",
+  "exclude_table_list": [
+    {
+      "schema": "dbo",
+      "table": "ErrorLog"
+    }
+  ]
+}
