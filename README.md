@@ -50,6 +50,21 @@ The structure of the config.json file:
 * **working_folder** - the temp folder where the binary table data is written to which can be deleted after the import
 * **exclude_table_list** - the list of tables which you want to skip (useful for log and auditing tables)
 
+## Docker Usage
+
+For the docker version, please do not edit the bcp_path. For getting started, copy the **config.example.json** and 
+**docker-run.sh** file to your local. Now make a copy of **config.example.json** and name it **config.json**
+
+Edit the source, target and exclude_table_list section in the config file.
+
+Note: If you are trying to import the table data to your local machine, use the ip address 172.17.0.1 in your config
+file.
+
+Note 2: You need to enable Mixed Mode authentication and TCP/IP connectivity for this solution to work on Windows 
+(only needed if you are using your local machine as the source or target).
+
+Run the sh script with ```bash docker-run.sh```
+
 ## Building
 
 * Python 3.12 or greater
