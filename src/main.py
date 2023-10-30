@@ -1,3 +1,4 @@
+import log_configuration
 import logging
 import sys
 
