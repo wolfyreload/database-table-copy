@@ -1,4 +1,5 @@
 **/build/
+**/bcp/
 **/test/
 **/logs/
 *.pyc
