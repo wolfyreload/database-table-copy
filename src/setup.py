@@ -19,7 +19,7 @@ def get_files_by_pattern(pattern):
 
 
 # Use the function to get a list of files matching the wildcard pattern.
-include_files = [("../config.example.json", "config.example.json"),
+include_files = [("config.example.json", "config.example.json"),
                  ("../README.md", "README.md"),
                  ("../LICENSE.txt", "LICENSE.txt")]
 
