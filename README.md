@@ -59,8 +59,8 @@ The structure of the config.json file:
 
 The docker version does not need the bcp or odbc drivers installed locally.
 
-For the docker version, please do not edit the bcp_path. For getting started, copy the **config.example.json** and
-**docker-run.sh** file to your local. Now make a copy of **config.example.json** and name it **config.json**
+For the docker version, please do not edit the bcp_path. For getting started, copy contents of the **test** folder to 
+your local. Now make a copy of **config.example.json** and name it **config.json**
 
 Edit the **source**, **target** and **exclude_table_list** sections in the config file.
 
@@ -71,6 +71,8 @@ Note 2: You need to enable Mixed Mode authentication and TCP/IP connectivity for
 (only needed if you are using your local machine as the source or target).
 
 Run the sh script with ```bash docker-run.sh```
+
+If you get any errors, look at the log output and debug.
 
 ## Building
 
