@@ -1,6 +1,6 @@
 import subprocess
 
-from src.util.sql_connection_properties import SQLConnectionProperties
+from util.sql_connection_properties import SQLConnectionProperties
 
 class BCPWrapper:
     """

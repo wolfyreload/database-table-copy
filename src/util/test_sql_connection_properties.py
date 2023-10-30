@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from src.util.sql_connection_properties import SQLConnectionProperties
+from util.sql_connection_properties import SQLConnectionProperties
 
 
 class TestSQLConnectionProperties(TestCase):

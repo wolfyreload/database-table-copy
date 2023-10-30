@@ -1,7 +1,7 @@
 from unittest import TestCase
 
-from src.util.sql_connection_properties import SQLConnectionProperties
-from src.util.sql_server_query_wrapper import SQLServerQueryWrapper
+from util.sql_connection_properties import SQLConnectionProperties
+from util.sql_server_query_wrapper import SQLServerQueryWrapper
 
 
 class TestSQLServerQueryWrapper(TestCase):
