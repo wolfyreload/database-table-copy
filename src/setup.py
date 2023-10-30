@@ -25,7 +25,7 @@ include_files = [("config.example.json", "config.example.json"),
 
 setup(
     name='DatabaseTableCopy',
-    version='1.0.4',
+    version='1.0.5',
     description='A bcp wrapper for copy table data between two databases',
     executables=[executable],
     options={'build_exe':
