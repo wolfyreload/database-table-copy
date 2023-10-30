@@ -16,31 +16,32 @@ class BCPIn:
     using the BCP utility.
     """
     def __init__(self):
-        json_string = open(f"./{Config.working_folder}/table_list.json", "r").read()
+        with open(f"./{Config.working_folder}/table_list.json", "r") as file_handle:
+            json_string = file_handle.read()
 
         sql_out_properties = Config.target
         self.sql_connection = SQLConnectionProperties(**sql_out_properties)
         self.table_list = json.loads(json_string)
         self.conn = SQLServerQueryWrapper(self.sql_connection)
+        self.bcp_wrapper = BCPWrapper(self.sql_connection, Config.bcp_path, Config.working_folder)
 
     def import_tables(self):
-        bcp_out_wrapper = BCPWrapper(self.sql_connection, Config.bcp_path, Config.working_folder)
         full_table_list = helpers.get_table_list(self.sql_connection)
         self.disable_constraints(full_table_list)
 
         for table in self.table_list:
             schema_name, table_name = itemgetter("SchemaName", "TableName")(table)
-            self.import_table(bcp_out_wrapper, schema_name, table_name)
+            self.import_table(self.bcp_wrapper, schema_name, table_name)
 
         self.enable_constraints(full_table_list)
 
-    def import_table(self, bcp_out_wrapper, schema_name, table_name):
+    def import_table(self, schema_name, table_name):
         try:
             logging.debug(f"Importing table data for [{schema_name}].[{table_name}]")
             self.batch_delete_table(schema_name, table_name)
-            in_statement = bcp_out_wrapper.generate_bcp_in_statement(schema_name, table_name)
+            in_statement = self.bcp_wrapper.generate_bcp_in_statement(schema_name, table_name)
             os.system(in_statement)
-            error_text = helpers.get_error_text(bcp_out_wrapper, "in", schema_name, table_name)
+            error_text = helpers.get_error_text(self.bcp_wrapper, "in", schema_name, table_name)
             if len(error_text) > 0:
                 logging.error(f"Error Importing table data for [{schema_name}].[{table_name}] {error_text}")
         except Exception as e:
