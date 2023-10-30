@@ -30,8 +30,8 @@ class BCPIn:
         self.disable_constraints(full_table_list)
 
         for table in self.table_list:
-            schema_name, table_name = itemgetter("SchemaName", "TableName")(table)
-            self.import_table(self.bcp_wrapper, schema_name, table_name)
+            schema_name, table_name = itemgetter("schema", "table")(table)
+            self.import_table(schema_name, table_name)
 
         self.enable_constraints(full_table_list)
 
@@ -50,7 +50,7 @@ class BCPIn:
     def disable_constraints(self, full_table_list):
         logging.info("Disabling constraints")
         for table in full_table_list:
-            schema_name, table_name = itemgetter("SchemaName", "TableName")(table)
+            schema_name, table_name = itemgetter("schema", "table")(table)
             try:
                 self.conn.execute_sql_with_no_results(
                     f"ALTER TABLE [{schema_name}].[{table_name}] NOCHECK CONSTRAINT ALL")
@@ -60,7 +60,7 @@ class BCPIn:
     def enable_constraints(self, full_table_list):
         logging.info("Enabling constraints")
         for table in full_table_list:
-            schema_name, table_name = itemgetter("SchemaName", "TableName")(table)
+            schema_name, table_name = itemgetter("schema", "table")(table)
             try:
                 self.conn.execute_sql_with_no_results(
                     f"ALTER TABLE [{schema_name}].[{table_name}] WITH CHECK CHECK CONSTRAINT ALL")

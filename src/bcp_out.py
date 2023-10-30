@@ -24,7 +24,7 @@ class BCPOut:
         self.remove_excluded_tables(table_list)
 
         for table in table_list:
-            schema_name, table_name = itemgetter("SchemaName", "TableName")(table)
+            schema_name, table_name = itemgetter("schema", "table")(table)
             self.export_table(schema_name, table_name)
 
         with open(f"./{Config.working_folder}/table_list.json", "w") as filehandle:
@@ -44,7 +44,7 @@ class BCPOut:
         remove_table_list = []
         for table in table_list:
             for exclude_table in Config.exclude_table_list:
-                schema_name, table_name = itemgetter("SchemaName", "TableName")(table)
+                schema_name, table_name = itemgetter("schema", "table")(table)
                 exclude_schema_name, exclude_table_name = itemgetter("schema", "table")(exclude_table)
                 if schema_name == exclude_schema_name and table_name == exclude_table_name:
                     remove_table_list.append(table)

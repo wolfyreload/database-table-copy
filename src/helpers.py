@@ -22,7 +22,7 @@ def get_error_text(bcp_out_wrapper: BCPWrapper, operation: str, schema: str, tab
 def get_table_list(sql_connection: SQLConnectionProperties) -> list[dict]:
     conn = SQLServerQueryWrapper(sql_connection)
     query = """
-        SELECT s.name AS SchemaName, t.name AS TableName
+        SELECT s.name AS [schema], t.name AS [table]
         FROM sys.tables t
         INNER JOIN sys.schemas s ON t.schema_id = s.schema_id
         WHERE t.is_ms_shipped = 0
