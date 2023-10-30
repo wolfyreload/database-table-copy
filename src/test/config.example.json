@@ -2,7 +2,7 @@
   "bcp_path": "/opt/mssql-tools18/bin/bcp",
   "source": {
     "driver": "ODBC Driver 18 for SQL Server",
-    "server": "localhost",
+    "server": "172.17.0.1",
     "database": "AdventureWorksLT2019",
     "port": "1433",
     "username": "sa",
@@ -10,7 +10,7 @@
   },
   "target": {
     "driver": "ODBC Driver 18 for SQL Server",
-    "server": "localhost",
+    "server": "172.17.0.1",
     "database": "AdventureWorksLT2019_2",
     "port": "1433",
     "username": "sa",
