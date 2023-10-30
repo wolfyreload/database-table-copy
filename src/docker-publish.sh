@@ -4,7 +4,6 @@
 push=${1-0}
 
 version=$(git describe --tags)
-echo $version
 
 docker build . -t "wolfyreload/database-table-copy:latest"
 docker tag "wolfyreload/database-table-copy:latest" "wolfyreload/database-table-copy:${version}"
