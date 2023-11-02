@@ -22,3 +22,13 @@ class SQLConnectionProperties:
                 f"UID={self.username};"
                 f"PWD={self.password};"
                 f"TrustServerCertificate=yes")
+
+    @property
+    def postgres_connection_string(self):
+        return {
+            "host": self.server,
+            "dbname": self.database,
+            "port": self.port,
+            "user": self.username,
+            "password": self.password
+        }

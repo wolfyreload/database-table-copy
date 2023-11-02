@@ -32,6 +32,18 @@ def get_table_list(sql_connection: SQLConnectionProperties) -> list[dict]:
     return table_list
 
 
+def get_postgres_table_list(sql_connection: SQLConnectionProperties) -> list[dict]:
+    conn = SQLServerQueryWrapper(sql_connection)
+    query = """
+        SELECT table_schema AS "schema",
+               table_name AS "table"
+        FROM information_schema.tables
+        WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema')
+        ORDER BY "schema", "table"
+    """
+    table_list = conn.execute_sql_with_dict_result()
+
+
 def cleanup_error_files():
     directory = f"{Config.working_folder}"
     pattern = "*_err.txt"
