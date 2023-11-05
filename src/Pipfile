@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pyodbc = "4.0.39"
+psycopg2-binary = "2.9.6"
 
 [dev-packages]
 cx-freeze = "6.15.8"

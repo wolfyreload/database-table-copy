@@ -20,6 +20,7 @@ class TestBCPIn(TestCase):
             "password": "password123!"
         }
         Config.working_folder = "bcp"
+        helpers.write_table_list([{"schema": "dbo", "table": "BcpInTest"}])
         sql_connection = SQLConnectionProperties(**Config.target)
         self.conn = SQLServerQueryWrapper(sql_connection)
         # Make bcp working folder if it doesn't exist

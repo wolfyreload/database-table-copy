@@ -4,4 +4,5 @@ bcp/
 logs/
 build/
 config.json
+config.pg.json
 deploy.sh

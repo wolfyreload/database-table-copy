@@ -41,31 +41,5 @@ class TestBCPOut(TestCase):
         with open('bcp/dbo_BcpOutTest.bcp', "r") as file_handle:
             self.assertTrue(len(file_handle.read()) > 0)
 
-    def test_remove_excluded_tables(self):
-        table_list = [
-            {
-                "schema": "dbo",
-                "table": "ErrorLog1"
-            },
-            {
-                "schema": "dbo",
-                "table": "ErrorLog2"
-            },
-            {
-                "schema": "dbo",
-                "table": "ErrorLog3"
-            }
-        ]
-        Config.exclude_table_list = [
-            {
-                "schema": "dbo",
-                "table": "ErrorLog2"
-            },
-            {
-                "schema": "dbo",
-                "table": "ErrorLog3"
-            }
-        ]
-        BCPOut.remove_excluded_tables(table_list)
-        self.assertEqual(1, len(table_list))
+
 

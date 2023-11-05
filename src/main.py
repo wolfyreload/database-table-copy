@@ -8,6 +8,8 @@ from arg_handler import config_filename
 from bcp_in import BCPIn
 from bcp_out import BCPOut
 from config import Config
+from postgres_in import PostgresIn
+from postgres_out import PostgresOut
 from util.bcp_wrapper import BCPWrapper
 
 logging.info("Starting Database Table Copy")
@@ -16,20 +18,10 @@ Config.load(config_filename)
 # Make bcp working folder if it doesn't exist
 helpers.make_dir(Config.working_folder)
 
-logging.info("Checking for valid bcp version")
-if not BCPWrapper.is_valid_bcp_version(Config.bcp_path):
-    logging.error("Invalid bcp version detected, only version 18 is currently supported")
-    sys.exit(1)
-
-logging.info("Exporting tables from source started")
-bcp_out = BCPOut()
-bcp_out.export_tables()
-logging.info("Exporting tables from source completed")
-
-logging.info("Importing tables to target started")
-bcp_in = BCPIn()
-bcp_in.import_tables()
-logging.info("Importing tables to target completed")
+if Config.source["driver"] != "postgres":
+    import process_bcp
+else:
+    import process_postgres
 
 logging.info("Cleanup error files")
 helpers.cleanup_error_files()
