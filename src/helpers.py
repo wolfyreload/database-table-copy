@@ -1,7 +1,9 @@
 import glob
 import json
 import os
+import shutil
 from operator import itemgetter
+from pathlib import Path
 
 from config import Config
 from util.bcp_wrapper import BCPWrapper
@@ -95,3 +97,9 @@ def write_table_list(table_list: list[dict]):
     with open(f"./{Config.working_folder}/table_list.json", "w") as filehandle:
         json_string = json.dumps(table_list, sort_keys=True, indent=4)
         filehandle.write(json_string)
+
+
+def delete_directory(directory_name: str):
+    directory_path = Path(directory_name)
+    if directory_path.is_dir():
+        shutil.rmtree(directory_name)

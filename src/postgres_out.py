@@ -31,6 +31,7 @@ class PostgresOut:
 
     def export_table(self, schema_name, table_name):
         logging.debug(f"Exporting table data for [{schema_name}].[{table_name}]")
+        helpers.delete_directory(self.pg_wrapper.get_backup_directory(schema_name, table_name))
         out_statement = self.pg_wrapper.generate_pg_dump_statement(schema_name, table_name)
         os.system(out_statement)
         error_text = helpers.get_pg_error_text(self.pg_wrapper, "out", schema_name, table_name)

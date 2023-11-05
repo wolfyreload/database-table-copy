@@ -57,3 +57,6 @@ class PGWrapper:
 
     def get_error_file_name(self, schema: str, table: str, operation: str):
         return f"./{self.folder}/{schema}_{table}_{operation}_err.txt"
+
+    def get_backup_directory(self, schema: str, table: str):
+        return f"./{self.folder}/{schema}_{table}.dir"
