@@ -25,7 +25,7 @@ class PGWrapper:
                   f'--format="t" '
                   f'--file="./{self.folder}/{schema}_{table}.tar" '
                   f'--table \'"{schema}"."{table}"\' '
-                  f'--no-owner --no-privileges --data-only '
+                  f'--no-owner --no-privileges --data-only --column-inserts '
                   f'"{database}"'
                   f'>./{self.folder}/{schema}_{table}_out_err.txt 2>&1'
                   )
