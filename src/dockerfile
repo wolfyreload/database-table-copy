@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apt-get update && apt-get -y install curl gpg
 RUN curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
 RUN curl https://packages.microsoft.com/config/debian/12/prod.list | tee /etc/apt/sources.list.d/mssql-release.list
-RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev mssql-tools18 postgresql-client-common
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y unixodbc-dev mssql-tools18 postgresql-client-common postgresql-client
 
 # Install pipenv
 RUN pip install pipenv
