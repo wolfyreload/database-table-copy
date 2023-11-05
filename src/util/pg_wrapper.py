@@ -49,7 +49,7 @@ class PGWrapper:
                   f'--username="{username}" '
                   f'--format="t" '
                   f'--no-owner --no-privileges '
-                  f'"./{self.folder}/{schema}_{table}.tar '
+                  f'"./{self.folder}/{schema}_{table}.tar" '
                   f'>./{self.folder}/{schema}_{table}_in_err.txt 2>&1'
                   )
         return script
