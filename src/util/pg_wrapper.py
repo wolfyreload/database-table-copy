@@ -19,11 +19,12 @@ class PGWrapper:
 
         script = (f'export PGPASSWORD="{password}" && '
                   f'{self.pg_tool_path}/pg_dump '
+                  f'--jobs=4 '
                   f'--host="{server}" '
                   f'--port="{port}" '
                   f'--username="{username}" '
-                  f'--format="t" '
-                  f'--file="./{self.folder}/{schema}_{table}.tar" '
+                  f'--format="d" '
+                  f'--file="./{self.folder}/{schema}_{table}.dir" '
                   f'--table \'"{schema}"."{table}"\' '
                   f'--no-owner --no-privileges --data-only --column-inserts '
                   f'"{database}"'
@@ -43,13 +44,14 @@ class PGWrapper:
 
         script = (f'export PGPASSWORD="{password}" && '
                   f'{self.pg_tool_path}/pg_restore '
+                  f'--jobs=4 '
                   f'--host="{server}" '
                   f'--port="{port}" '
                   f'--dbname="{database}" '
                   f'--username="{username}" '
-                  f'--format="t" '
+                  f'--format="d" '
                   f'--no-owner --no-privileges '
-                  f'"./{self.folder}/{schema}_{table}.tar" '
+                  f'"./{self.folder}/{schema}_{table}.dir" '
                   f'>./{self.folder}/{schema}_{table}_in_err.txt 2>&1'
                   )
         return script
