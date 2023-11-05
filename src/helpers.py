@@ -6,6 +6,7 @@ from operator import itemgetter
 from config import Config
 from util.bcp_wrapper import BCPWrapper
 from util.pg_wrapper import PGWrapper
+from util.postgres_server_query_wrapper import PostgresServerQueryWrapper
 from util.sql_connection_properties import SQLConnectionProperties
 from util.sql_server_query_wrapper import SQLServerQueryWrapper
 
@@ -46,7 +47,7 @@ def get_table_list(sql_connection: SQLConnectionProperties) -> list[dict]:
 
 
 def get_postgres_table_list(sql_connection: SQLConnectionProperties) -> list[dict]:
-    conn = SQLServerQueryWrapper(sql_connection)
+    conn = PostgresServerQueryWrapper(sql_connection)
     query = """
         SELECT table_schema AS "schema",
                table_name AS "table"
@@ -54,7 +55,8 @@ def get_postgres_table_list(sql_connection: SQLConnectionProperties) -> list[dic
         WHERE table_type = 'BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema')
         ORDER BY "schema", "table"
     """
-    table_list = conn.execute_sql_with_dict_result()
+    table_list = conn.execute_sql_with_dict_result(query)
+    return table_list
 
 
 def cleanup_error_files():
