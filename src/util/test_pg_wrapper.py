@@ -17,11 +17,11 @@ class TestPGWrapper(TestCase):
         self.sql_connection = SQLConnectionProperties(**sql_properties)
 
     def test_generate_pg_dump_statement(self):
-        pg_wrapper = PGWrapper(self.sql_connection, "/usr/bin", "bcp")
+        pg_wrapper = PGWrapper(self.sql_connection, "bcp")
         actual = pg_wrapper.generate_pg_dump_statement("public", "TestTable1")
         self.assertTrue(len(actual) > 0)
 
     def test_generate_pg_restore_statement(self):
-        pg_wrapper = PGWrapper(self.sql_connection, "/usr/bin", "bcp")
+        pg_wrapper = PGWrapper(self.sql_connection, "bcp")
         actual = pg_wrapper.generate_pg_restore_statement("public", "TestTable1")
         self.assertTrue(len(actual) > 0)

@@ -11,9 +11,8 @@ class BCPWrapper:
     :param folder: The folder to store BCP files. Default is "bcp".
     :type folder: str
     """
-    def __init__(self, sql_connection_properties: SQLConnectionProperties, bcp_path: str, folder):
+    def __init__(self, sql_connection_properties: SQLConnectionProperties, folder):
         self.sql_connection_properties = sql_connection_properties
-        self.bcp_path = bcp_path
         self.folder = folder
 
     @staticmethod
@@ -55,7 +54,7 @@ class BCPWrapper:
         # -u trust server certificate
         arguments = '-u -n -k -q -E'
 
-        script = (f'{self.bcp_path} '
+        script = (f'/opt/mssql-tools18/bin/bcp '
                   f'"{database}.{schema}.{table}" '
                   f'{operation} ./{self.folder}/{schema}_{table}.bcp '
                   f'-S"{server},{port}" '

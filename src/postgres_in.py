@@ -23,7 +23,7 @@ class PostgresIn:
         self.sql_connection = SQLConnectionProperties(**sql_out_properties)
         self.table_list = json.loads(json_string)
         self.conn = PostgresServerQueryWrapper(self.sql_connection)
-        self.pg_wrapper = PGWrapper(self.sql_connection, Config.bcp_path, Config.working_folder)
+        self.pg_wrapper = PGWrapper(self.sql_connection, Config.working_folder)
 
     def import_tables(self):
         self.disable_constraints()

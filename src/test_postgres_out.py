@@ -11,7 +11,6 @@ from util.sql_connection_properties import SQLConnectionProperties
 
 class TestPostgresOut(TestCase):
     def setUp(self):
-        Config.bcp_path = "/usr/bin"
         Config.source = {
             "driver": "postgres",
             "server": "localhost",

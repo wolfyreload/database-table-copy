@@ -2,9 +2,8 @@ from util.sql_connection_properties import SQLConnectionProperties
 
 
 class PGWrapper:
-    def __init__(self, sql_connection_properties: SQLConnectionProperties, pg_tool_path: str, folder: str):
+    def __init__(self, sql_connection_properties: SQLConnectionProperties, folder: str):
         self.sql_connection_properties = sql_connection_properties
-        self.pg_tool_path = pg_tool_path
         self.folder = folder
 
     def generate_pg_dump_statement(self, schema: str, table: str):
@@ -18,7 +17,7 @@ class PGWrapper:
         server = self.sql_connection_properties.server
 
         script = (f'export PGPASSWORD="{password}" && '
-                  f'{self.pg_tool_path}/pg_dump '
+                  f'/usr/bin/pg_dump '
                   f'--jobs=4 '
                   f'--host="{server}" '
                   f'--port="{port}" '
@@ -43,7 +42,7 @@ class PGWrapper:
         server = self.sql_connection_properties.server
 
         script = (f'export PGPASSWORD="{password}" && '
-                  f'{self.pg_tool_path}/pg_restore '
+                  f'/usr/bin/pg_restore '
                   f'--jobs=4 '
                   f'--host="{server}" '
                   f'--port="{port}" '

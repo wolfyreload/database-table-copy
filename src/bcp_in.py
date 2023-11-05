@@ -22,7 +22,7 @@ class BCPIn:
         self.sql_connection = SQLConnectionProperties(**sql_out_properties)
         self.table_list = json.loads(json_string)
         self.conn = SQLServerQueryWrapper(self.sql_connection)
-        self.bcp_wrapper = BCPWrapper(self.sql_connection, Config.bcp_path, Config.working_folder)
+        self.bcp_wrapper = BCPWrapper(self.sql_connection, Config.working_folder)
 
     def import_tables(self):
         full_table_list = helpers.get_table_list(self.sql_connection)

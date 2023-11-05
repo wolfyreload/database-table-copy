@@ -10,7 +10,6 @@ from util.sql_server_query_wrapper import SQLServerQueryWrapper
 
 class TestBCPOut(TestCase):
     def setUp(self):
-        Config.bcp_path = "/opt/mssql-tools18/bin/bcp"
         Config.source = {
             "driver": "ODBC Driver 18 for SQL Server",
             "server": "localhost",

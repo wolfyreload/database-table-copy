@@ -17,7 +17,7 @@ class BCPOut:
     def __init__(self):
         sql_out_properties = Config.source
         self.sql_connection = SQLConnectionProperties(**sql_out_properties)
-        self.bcp_wrapper = BCPWrapper(self.sql_connection, Config.bcp_path, Config.working_folder)
+        self.bcp_wrapper = BCPWrapper(self.sql_connection, Config.working_folder)
 
     def export_tables(self):
         table_list = helpers.get_table_list(self.sql_connection)
