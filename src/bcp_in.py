@@ -16,8 +16,7 @@ class BCPIn:
     using the BCP utility.
     """
     def __init__(self):
-        with open(f"./{Config.working_folder}/table_list.json", "r") as file_handle:
-            json_string = file_handle.read()
+        json_string = helpers.read_table_list()
 
         sql_out_properties = Config.target
         self.sql_connection = SQLConnectionProperties(**sql_out_properties)

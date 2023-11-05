@@ -17,15 +17,15 @@ class PGWrapper:
         port = self.sql_connection_properties.port
         server = self.sql_connection_properties.server
 
-        script = (f'export PGPASSWORD="{password}" & '
+        script = (f'export PGPASSWORD="{password}" && '
                   f'{self.pg_tool_path}/pg_dump '
                   f'--host="{server}" '
                   f'--port="{port}" '
                   f'--username="{username}" '
                   f'--format="t" '
                   f'--file="./{self.folder}/{schema}_{table}.tar" '
-                  f'--table "{schema}.{table}" '
-                  f'--clean --no-owner --no-privileges --data-only'
+                  f'--table \'"{schema}"."{table}"\' '
+                  f'--no-owner --no-privileges --data-only '
                   f'"{database}"'
                   f'>./{self.folder}/{schema}_{table}_out_err.txt 2>&1'
                   )
@@ -41,7 +41,7 @@ class PGWrapper:
         port = self.sql_connection_properties.port
         server = self.sql_connection_properties.server
 
-        script = (f'export PGPASSWORD="{password}" & '
+        script = (f'export PGPASSWORD="{password}" && '
                   f'{self.pg_tool_path}/pg_restore '
                   f'--host="{server}" '
                   f'--port="{port}" '
@@ -53,3 +53,6 @@ class PGWrapper:
                   f'>./{self.folder}/{schema}_{table}_in_err.txt 2>&1'
                   )
         return script
+
+    def get_error_file_name(self, schema: str, table: str, operation: str):
+        return f"./{self.folder}/{schema}_{table}_{operation}_err.txt"
