@@ -15,6 +15,8 @@ from util.sql_server_query_wrapper import SQLServerQueryWrapper
 
 def get_error_text(bcp_out_wrapper: BCPWrapper, operation: str, schema: str, table: str):
     error_file = bcp_out_wrapper.get_error_file_name(schema, table, operation)
+    if not os.path.exists(error_file):
+        return ""
     with open(error_file, "r") as file_handle:
         error_lines = file_handle.readlines()
     for error_line in error_lines:
@@ -27,6 +29,8 @@ def get_error_text(bcp_out_wrapper: BCPWrapper, operation: str, schema: str, tab
 
 def get_pg_error_text(pg_wrapper: PGWrapper, operation: str, schema: str, table: str):
     error_file = pg_wrapper.get_error_file_name(schema, table, operation)
+    if not os.path.exists(error_file):
+        return ""
     with open(error_file, "r") as file_handle:
         errors = file_handle.read()
     if len(errors) == 0:
