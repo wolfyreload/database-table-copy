@@ -46,6 +46,8 @@ class BCPIn:
                 logging.error(f"Error Importing table data for [{schema_name}].[{table_name}] {error_text}")
         except Exception as e:
             logging.error(f"Error Importing table data for [{schema_name}].[{table_name}]", e)
+        except subprocess.CalledProcessError as e:
+            logging.error(f"Error Importing table data for [{schema_name}].[{table_name}]", e)
 
     def disable_constraints(self, full_table_list):
         logging.info("Disabling constraints")

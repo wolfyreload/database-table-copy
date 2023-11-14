@@ -5,9 +5,14 @@ import sys
 import helpers
 
 from arg_handler import config_filename
+
+from config import Config
+
+logging.info("Cleanup error files")
+helpers.cleanup_error_files()
+
 from bcp_in import BCPIn
 from bcp_out import BCPOut
-from config import Config
 from postgres_in import PostgresIn
 from postgres_out import PostgresOut
 from util.bcp_wrapper import BCPWrapper
