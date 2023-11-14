@@ -84,7 +84,8 @@ def remove_excluded_tables(table_list: list[dict]):
                 remove_table_list.append(table)
 
     for remove_table in remove_table_list:
-        table_list.remove(remove_table)
+        if remove_table in table_list:
+            table_list.remove(remove_table)
 
 
 def read_table_list():
