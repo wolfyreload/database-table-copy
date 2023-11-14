@@ -22,6 +22,3 @@ if Config.source["driver"] != "postgres":
     import process_bcp
 else:
     import process_postgres
-
-logging.info("Cleanup error files")
-helpers.cleanup_error_files()

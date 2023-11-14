@@ -60,6 +60,7 @@ class BCPWrapper:
                   f'-S"{server},{port}" '
                   f'-U {username} '
                   f'-P {password} '
+                  f'-e {self.get_error_file_name(schema, table, operation)} '
                   f'{arguments}')
 
         return script

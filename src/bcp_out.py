@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import subprocess
 from operator import itemgetter
 
 import helpers
@@ -32,7 +33,7 @@ class BCPOut:
     def export_table(self, schema_name, table_name):
         logging.debug(f"Exporting table data for [{schema_name}].[{table_name}]")
         out_statement = self.bcp_wrapper.generate_bcp_out_statement(schema_name, table_name)
-        os.system(out_statement)
+        subprocess.check_call(out_statement, shell=True)
         error_text = helpers.get_error_text(self.bcp_wrapper, "out", schema_name, table_name)
         if len(error_text) > 0:
             logging.error(f"Error Exporting table data for [{schema_name}].[{table_name}] {error_text}")

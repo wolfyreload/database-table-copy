@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import subprocess
 from operator import itemgetter
 
 import helpers
@@ -33,7 +34,7 @@ class PostgresOut:
         logging.debug(f"Exporting table data for [{schema_name}].[{table_name}]")
         helpers.delete_directory(self.pg_wrapper.get_backup_directory(schema_name, table_name))
         out_statement = self.pg_wrapper.generate_pg_dump_statement(schema_name, table_name)
-        os.system(out_statement)
+        subprocess.check_call(out_statement, shell=True)
         error_text = helpers.get_pg_error_text(self.pg_wrapper, "out", schema_name, table_name)
         if len(error_text) > 0:
             logging.error(f"Error Exporting table data for [{schema_name}].[{table_name}] {error_text}")
